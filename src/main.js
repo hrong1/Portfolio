@@ -1,3 +1,4 @@
+"use strict"
 
 const app = document.getElementById('app');
 
@@ -14,7 +15,7 @@ const myInfo = {
 function loadMyInfo(info) {
   const infoHTML = `
     <h1>${info.name}</h1>
-    <p style="max-width: 800px;">${info.intro}</p>
+    <p style="max-width: auto;">${info.intro}</p>
     <div>
       <h2>Contact Info</h2>
       <ul>
@@ -43,14 +44,32 @@ async function loadProjectData() {
 }
 
 function displayProjectInfo(portfolioItems) {
-  const portfolioHTML = portfolioItems.map(item => `
-    <div class="portfolio-card">
-      <h3>${item.title}</h3>
-      <img src="${item.imageUrl}" alt="${item.description}" style="width: 600px; height: auto;">
-      <p style="max-width: 500px;">${item.description}</p>
-      <li>Project Link: <a href="${item.link}" target="_blank">${item.link}</a></li>
-    </div>
-  `).join('');
+  const portfolioHTML = portfolioItems.map(item => {
+    const tools = item.tool.join(', ');
+    const contributions = item.contribute.map(c => `<li>${c}</li>`).join('');
+    const repositoryLinkHTML = item.repositoryLink.startsWith('http') 
+      ? `<p class="project-detail"><strong>Repository Link:</strong> <a href="${item.repositoryLink}" target="_blank">${item.repositoryLink}</a></p>`
+      : `<p class="project-detail"><strong>Repository Link:</strong> ${item.repositoryLink}</p>`;
+    return `
+      <div class="portfolio-card">
+        <h3 style="text-align: center;" >${item.title}</h3>
+        <img class="portfolio-image" src="${item.imageUrl}" alt="${item.title}" style="width: 800px; height: auto;">
+        <p style="margin-bottom: 0.3rem" ><strong>Description:</strong></p>
+        <p style="font-style: italic;">${item.description}</p>
+        <p class="project-detail"><strong>Project Type:</strong> ${item.projectType}</p>
+        <p class="project-detail"><strong>My Role:</strong> ${item.role}</p>
+        <p class="project-detail"><strong>Languages & Tools:</strong> ${tools}</p>
+        <div>
+          <strong>Key Contributions:</strong>
+          <ul style="text-align: left; list-style-type: disc;" >
+            ${contributions}
+          </ul>
+        </div>
+        <p><strong>Project Link:</strong> <a href="${item.link}" target="_blank">${item.link}</a></p>
+        ${repositoryLinkHTML} 
+      </div>
+    `;
+  }).join('');
 
   app.innerHTML += `
     <div>
