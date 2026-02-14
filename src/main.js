@@ -6,9 +6,9 @@ const myInfo = {
   name: 'Haorong Rong',
   intro: 'Recent graduate student from the University of California, Santa Cruz with a B.S. in Computer Science: Computer Game Design. <br>Know C#, C++, Python, JavaScript, Phaser 3, Unity.',
   contact: {
-    email: 'sig37672jddh@gmail.com',
-    github: 'https://github.com/hrong1',
-    LinkedIn: 'http://www.linkedin.com/in/haorong-rong-8a9460314',
+    email: 'haorong.rong1@gmail.com',
+    github: 'github.com/hrong1',
+    LinkedIn: 'linkedin.com/in/haorong-rong-8a9460314',
   }
 };
 
